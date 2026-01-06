@@ -10,8 +10,14 @@ find_package(fmt CONFIG REQUIRED)
 
 add_executable(proxy
     src/main.cpp
+    src/socket_utils.cpp
+    src/http_parser.cpp
 )
 
+target_include_directories(proxy
+    PRIVATE
+        ${CMAKE_SOURCE_DIR}/include
+)
 
 target_link_libraries(proxy
     PRIVATE

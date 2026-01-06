@@ -45,7 +45,7 @@ int main(int argc, char* argv[]) {
 
     while (true) {
         socket_t client_fd = accept(server_fd, nullptr, nullptr);
-        if (client_fd < 0) continue;
+        if (client_fd == INVALID_SOCKET_VALUE) continue;
 
         std::string request = proxy::read_full_request(client_fd);
         if (request.empty()) {
@@ -76,7 +76,7 @@ int main(int argc, char* argv[]) {
         }
 
         socket_t remote_fd = proxy::create_socket();
-        if (connect(remote_fd, res->ai_addr, res->ai_addrlen) < 0) {
+        if (connect(remote_fd, res->ai_addr, static_cast<int>(res->ai_addrlen)) < 0) {
             spdlog::error("Falha ao conectar no host {}", host);
             freeaddrinfo(res);
             proxy::close_socket(client_fd);

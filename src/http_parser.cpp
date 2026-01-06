@@ -42,14 +42,14 @@ size_t get_content_length(const std::string& headers) {
     }
 }
 
-std::string read_full_request(size_t client_fd) {
+std::string read_full_request(socket_t client_fd) {
     std::string request;
     request.reserve(BUFFER_SIZE);
 
     char buffer[BUFFER_SIZE];
 
     while (true) {
-        int bytes = recv(client_fd, buffer, BUFFER_SIZE, 0);
+        int bytes = recv(client_fd, buffer, static_cast<int>(BUFFER_SIZE), 0);
 
         if (bytes <= 0) {
             break;
@@ -57,7 +57,7 @@ std::string read_full_request(size_t client_fd) {
 
         request.append(buffer, bytes);
 
-        if (request.find("\n\r\n\r") != std::string::npos) {
+        if (request.find("\r\n\r\n") != std::string::npos) {
             break;
         }
     }
