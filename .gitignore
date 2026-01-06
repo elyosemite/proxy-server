@@ -1,3 +1,5 @@
 .vscode
 build/
 vcpkg/
+CMakeFiles/
+CMakeCache.txt
