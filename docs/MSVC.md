@@ -7,12 +7,50 @@ This project uses CMake and vcpkg (manifest mode via `vcpkg.json`). On Windows, 
 - Visual Studio 2022 (or 2019) with:
   - **Desktop development with C++** workload
   - Windows 10/11 SDK
-- CMake (recommended: latest stable)
+- CMake 3.23+ (required for presets support)
 - vcpkg (already present in this repo under `vcpkg/`)
 
 Optional (but recommended): Ninja (only if you want the Ninja generator).
 
-## Option A: Visual Studio Generator (recommended)
+## Quick Start (Using CMake Presets)
+
+This project includes a `CMakePresets.json` with pre-configured build setups. This is the **recommended approach**.
+
+From the repository root:
+
+**1) Configure**
+
+```bash
+cmake --preset msvc-vs-debug
+```
+
+**2) Build**
+
+```bash
+cmake --build --preset msvc-vs-debug
+```
+
+**3) Run**
+
+```bash
+build-vs\Debug\proxy.exe 8080
+```
+
+For Release build:
+
+```bash
+cmake --preset msvc-vs-release
+cmake --build --preset msvc-vs-release
+build-vs\Release\proxy.exe 8080
+```
+
+---
+
+## Alternative: Manual Configuration
+
+If you prefer not to use presets or need to customize further:
+
+### Option A: Visual Studio Generator
 
 This uses the multi-config Visual Studio generator (Debug/Release are selected at build time).
 
@@ -38,23 +76,39 @@ and run:
 
 `build-vs\Release\proxy.exe 8080`
 
-## Option B: Ninja + MSVC (fast builds)
+### Option B: Ninja + MSVC (fast builds)
 
 This uses Ninja but still compiles with MSVC (`cl.exe`).
+
+**With preset:**
+
+```bash
+cmake --preset msvc-ninja-debug
+cmake --build --preset msvc-ninja-debug
+build-msvc-ninja\proxy.exe 8080
+```
+
+**Manual (without preset):**
 
 1) Open a **Developer Command Prompt for VS** (so `cl` is available), then from the repo root:
 
 2) Configure
 
-`cmake -S . -B build-msvc-ninja -G Ninja -DCMAKE_BUILD_TYPE=Debug -DCMAKE_C_COMPILER=cl -DCMAKE_CXX_COMPILER=cl -DVCPKG_TARGET_TRIPLET=x64-windows -DCMAKE_TOOLCHAIN_FILE="%CD%\vcpkg\scripts\buildsystems\vcpkg.cmake"`
+```bash
+cmake -S . -B build-msvc-ninja -G Ninja -DCMAKE_BUILD_TYPE=Debug -DCMAKE_C_COMPILER=cl -DCMAKE_CXX_COMPILER=cl -DVCPKG_TARGET_TRIPLET=x64-windows -DCMAKE_TOOLCHAIN_FILE="%CD%\vcpkg\scripts\buildsystems\vcpkg.cmake"
+```
 
 3) Build
 
-`cmake --build build-msvc-ninja`
+```bash
+cmake --build build-msvc-ninja
+```
 
 4) Run
 
-`build-msvc-ninja\proxy.exe 8080`
+```bash
+build-msvc-ninja\proxy.exe 8080
+```
 
 ## Notes about vcpkg
 

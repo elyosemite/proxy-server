@@ -86,6 +86,7 @@ int main(int argc, char* argv[]) {
 
         freeaddrinfo(res);
 
+        // Resend request to remote server and relay response back to client
         send(remote_fd, request.c_str(), static_cast<int>(request.size()), 0);
 
         char buffer[proxy::BUFFER_SIZE];
