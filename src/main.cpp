@@ -10,12 +10,12 @@
 
 int main(int argc, char* argv[]) {
     if (argc < 2) {
-        std::cerr << "Uso: ./proxy <porta>\n";
+        std::cerr << "Usage: ./proxy <porta>\n";
         return 1;
     }
 
     if (!proxy::init_network()) {
-        std::cerr << "Falha ao inicializar rede\n";
+        std::cerr << "Failure to init network\n";
         return 1;
     }
 
