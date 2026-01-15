@@ -4,4 +4,5 @@ vcpkg/
 CMakeFiles/
 CMakeCache.txt
 build-mingw-ninja/
+build-msvc-ninja/
 build-vs/
