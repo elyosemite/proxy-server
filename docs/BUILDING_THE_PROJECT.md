@@ -1,5 +1,7 @@
 # Crafting a Modern C++ Proxy Server: A Guide to Project Setup
 
+![B2-Spirit](./image.jpeg)
+
 In the world of software engineering, building a network proxy from scratch is a classic and rewarding challenge. It tests your understanding of networking, protocols, and performance. In this guide, we'll lay the groundwork for a simple, cross-platform HTTP proxy server using modern C++.
 
 We won't be writing the full proxy logic today. Instead, we'll focus on the most critical, and often overlooked, part of any serious C++ project: **a robust and scalable project structure.**
